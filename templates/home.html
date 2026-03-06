@@ -19,10 +19,16 @@
             <div class="col-8 pt-1">
             <a class="blog-header-logo text-dark" href="/">Django Blog</a>
             </div>
+            {% if user.is_authenticated %}
             <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-warning" href="#">Login</a> &nbsp;
-            <a class="btn btn-sm btn-outline-secondary" href="#">Register</a>
+                <a class="btn btn-sm btn-warning" href="{% url "logout" %}">Logout</a> &nbsp;
             </div>
+            {% else %}
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="btn btn-sm btn-warning" href="{% url "login" %}">Login</a> &nbsp;
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Register</a>
+            </div>
+            {% endif %}
         </div>
         </header>
         
@@ -41,7 +47,7 @@
                 <form action="{% url 'search' %}" method='GET'>
                     <div class="card-body">
                         <div class="input-group">
-                            <input class="form-control" type="text" name='keyword' value={{ keyword }} placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                            <input class="form-control" type="text" name='keyword' value='{{ keyword }}' placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
                             <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
                         </div>
                     </div>
