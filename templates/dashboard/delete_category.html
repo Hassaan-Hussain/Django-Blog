@@ -1,0 +1,24 @@
+{% extends 'home.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+    
+    {% include 'dashboard/sidebar.html' %}
+    
+    <div class="col-md-9">
+        <h2>Delete Category</h2>
+        
+        <form action="{% url 'delete_category' category.id %}" method='post'>
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class='btn btn-danger mb-5'>delete</button>
+            <a href="{% url "categories" %}" class='btn btn-warning mb-5'>Cancel</a>
+        </form>
+    </div>
+    
+</div>
+
+
+{% endblock content %} 
