@@ -15,7 +15,7 @@ def posts_by_category(request, category_id):
     return render(request, 'posts_by_category.html', context)
 
 def blog(request, slug):
-    blog_post = get_object_or_404(Blog, slug=slug, is_featured=True)
+    blog_post = get_object_or_404(Blog, slug=slug)
 
     return render(request, 'single_blog_page.html', {'blog_post': blog_post})
 

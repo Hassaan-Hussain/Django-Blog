@@ -1,0 +1,21 @@
+{% extends "home.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+    
+    {% include "dashboard/sidebar.html" %}
+    <div class="col-md-9">
+        <h3>Create Post</h3>
+        
+        <form action="{% url "add_post" %}" method='post' enctype='multipart/form-data' style=''>
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class='btn btn-primary mb-3'>Create</button>
+        </form>
+    </div>
+    
+</div>
+
+{% endblock content %}
