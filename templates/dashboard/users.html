@@ -1,0 +1,52 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="row">
+    
+    {% include 'dashboard/sidebar.html' %}
+    {% if perms.auth.view_user %}
+    <div class="col-md-9">
+            <h3>Add Users</h3>
+            <a href="{% url 'add_user' %}" class='btn btn-dark text-light float-right mb-2'>+</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Username</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>is_active</th>
+                    <th>is_staff</th>
+                    <th>is_superuser</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for user in users %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td><i class="{% if user.is_active %}fa fa-check text-success{% else %}fa fa-times text-danger{% endif %}"></i></td>
+                    <td><i class="{% if user.is_staff %}fa fa-check text-success{% else %}fa fa-times text-danger{% endif %}"></i></td>
+                    <td><i class="{% if user.is_superuser %}fa fa-check text-success{% else %}fa fa-times text-danger{% endif %}"></i></td>
+                    <td>
+                        <a href="{% url "edit_user" user.id %}"><i class="fa-regular fa-pen-to-square"></i></a>
+                        &nbsp;
+                        {% if perms.auth.view_user %}
+                        <a href="{% url "delete_user" user.id %}"><i class="fa-regular fa-trash-can text-danger"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% else %}
+        <h2> Access Denied!</h2>
+    {% endif %}
+</div>
+    {% endblock content %}
